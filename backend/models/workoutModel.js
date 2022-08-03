@@ -9,7 +9,7 @@ const workoutSchema = new Schema(
       required: true,
     },
     time: {
-      type: String,
+      type: Number,
       required: false,
     },
     workoutType: {
@@ -22,6 +22,10 @@ const workoutSchema = new Schema(
     },
 
     results: {
+      type: String,
+      required: false,
+    },
+    rx: {
       type: String,
       required: false,
     },

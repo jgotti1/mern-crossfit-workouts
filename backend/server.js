@@ -1,6 +1,7 @@
 const express = require("express");
 const workoutRoutes = require("./routes/workouts");
 const mongoose = require("mongoose");
+const cors = require("cors");
 require("dotenv").config();
 
 const app = express();
@@ -9,8 +10,10 @@ app.use((req, res, next) => {
   next();
 });
 
-
 app.use(express.json());
+
+// cors to allow server to server communication without proxy
+app.use(cors());
 
 //Routes
 app.use("/api/workouts", workoutRoutes);
