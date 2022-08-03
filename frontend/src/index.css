@@ -116,3 +116,6 @@ div.error {
 .icons:hover {
   color: red;
 }
+.error {
+  border: 1px solid var(--error);
+}

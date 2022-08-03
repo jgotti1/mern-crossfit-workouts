@@ -3,6 +3,9 @@ import { GrEdit } from "react-icons/gr";
 import { RiDeleteBin2Line } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 
+//date-fns formating date
+import formatDistanceToNow from "date-fns/formatDistanceToNow";
+
 function WorkoutDetails({ workout }) {
   //dev fetch path
   const fetchPath = "http://localhost:4000/api/workouts/";
@@ -47,19 +50,23 @@ function WorkoutDetails({ workout }) {
           {workout.workoutType}
         </p>
         <p>
-          <strong> Time:</strong> <em>(for timed wods) </em> {workout.time}
+          <strong> Time</strong> <em>(for timed wods): </em> {workout.time + ":00"}
         </p>
         <p>
           <strong>Details: </strong>
           {workout.details}
         </p>
         <p>
+          <strong>RX or Scaled: </strong>
+          {workout.rx}
+        </p>
+        <p>
           <strong>Results: </strong>
           {workout.results}
         </p>
         <p>
-          <strong>created on: </strong>
-          {workout.createdAt}
+          <strong>created: </strong>
+          {formatDistanceToNow(new Date(workout.createdAt), { addSuffix: true })}
         </p>
       </div>
     </div>
