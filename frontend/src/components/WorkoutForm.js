@@ -1,5 +1,7 @@
 import React from "react";
 import { useState } from "react";
+import { workoutFetchPath } from "../hooks/fetchPaths";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 export default function WorkoutForm() {
   const [title, setTitle] = useState("");
@@ -10,21 +12,23 @@ export default function WorkoutForm() {
   const [error, setError] = useState(null);
   const [rx, setRx] = useState("");
   const [emptyFields, setEmptyFields] = useState([]);
-
-  //dev fetch path
-  const fetchPath = "http://localhost:4000/api/workouts/";
-
-  //prod fetch path to deploy from heroku
-  // const fetchPath = "http://xxxxxxxxx/api/workouts/"
+  const { user } = useAuthContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!user) {
+      setError("You must be logged in");
+      return;
+    }
+
     const workout = { title, time, workoutType, details, results, rx };
-    const response = await fetch(fetchPath, {
+
+    const response = await fetch(workoutFetchPath, {
       method: "POST",
       body: JSON.stringify(workout),
       headers: {
-        "content-Type": "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${user.token}`,
       },
     });
     const json = await response.json();

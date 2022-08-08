@@ -2,26 +2,28 @@ import React from "react";
 import { useEffect, useState } from "react";
 import WorkoutDetails from "../components/WorkoutDetails";
 import WorkoutForm from "../components/WorkoutForm";
+import { workoutFetchPath } from "../hooks/fetchPaths";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 function Home() {
-  //dev fetch path
-  const fetchPath = "http://localhost:4000/api/workouts";
-
-  //prod fetch path to deploy from heroku
-  // const fetchPath = "http://xxxxxxxxx/api/workouts"
-
   const [workouts, setWorkouts] = useState(null);
+  const { user } = useAuthContext();
+
   useEffect(() => {
     const fetchWorkouts = async () => {
-      const response = await fetch(fetchPath);
+      const response = await fetch(workoutFetchPath, {
+        headers: { Authorization: `Bearer ${user.token}` },
+      });
       const json = await response.json();
       if (response.ok) {
         setWorkouts(json);
       }
     };
 
-    fetchWorkouts();
-  }, []);
+    if (user) {
+      fetchWorkouts();
+    }
+  }, [user]);
 
   return (
     <div className="home">

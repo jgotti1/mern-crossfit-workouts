@@ -2,21 +2,26 @@ import React from "react";
 import { GrEdit } from "react-icons/gr";
 import { RiDeleteBin2Line } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
+import { workoutFetchPath } from "../hooks/fetchPaths";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 //date-fns formating date
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 
 function WorkoutDetails({ workout }) {
-  //dev fetch path
-  const fetchPath = "http://localhost:4000/api/workouts/";
-
-  //prod fetch path to deploy from heroku
-  // const fetchPath = "http://xxxxxxxxx/api/workouts/"
+  const { user } = useAuthContext();
 
   //Delete workout handling
   const handleDelete = async () => {
-    const response = await fetch(fetchPath + workout._id, {
+    if (!user) {
+      return;
+    }
+
+    const response = await fetch(workoutFetchPath + workout._id, {
       method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
     });
 
     if (response.ok) {
@@ -28,8 +33,11 @@ function WorkoutDetails({ workout }) {
   const navigate = useNavigate();
 
   const HandleEdit = async () => {
-    const response = await fetch(fetchPath + workout._id, {
+    const response = await fetch(workoutFetchPath + workout._id, {
       method: "Get",
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
     });
     const editWorkout = await response.json();
 

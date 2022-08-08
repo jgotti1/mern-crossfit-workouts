@@ -27,6 +27,7 @@ header a {
   text-decoration: none;
   font-size: 24px;
 }
+
 .pages {
   max-width: 1400px;
   padding: 20px;
@@ -39,6 +40,11 @@ header a {
   grid-template-columns: 3fr 1fr;
   gap: 100px;
 }
+.home_edit {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+}
 .workout-details {
   background: #fff;
   border-radius: 4px;
@@ -47,11 +53,39 @@ header a {
   position: relative;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.09);
 }
+.workout-edit {
+  background: #fff;
+  border-radius: 4px;
+  margin: 10px auto;
+  padding: 20px;
+  position: relative;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.09);
+  width: 75%;
+  border: 3px solid green;
+  border-radius: 9px;
+  border-style: dotted;
+}
 .workout-details h4 {
   margin: 0 0 10px 0;
   font-size: 1.2em;
   color: var(--primary);
 }
+
+.workout-edit h4 {
+  margin: 0 0 10px 0;
+  font-size: 1.2em;
+  color: var(--primary);
+}
+.edit_head {
+  font-size: 1.1em;
+  color: var(--primary);
+  text-align: center;
+  padding-bottom: 50px;
+  text-shadow: 1px 1px rgb(56, 55, 55);
+  letter-spacing: 4px;
+  margin: 0;
+}
+
 .workout-details p {
   margin: 0;
   font-size: 0.9em;
@@ -118,4 +152,37 @@ div.error {
 }
 .error {
   border: 1px solid var(--error);
+}
+
+/* navbar */
+nav {
+  display: flex;
+  align-items: center;
+}
+nav a {
+  margin-left: 20px;
+}
+.active {
+  color: rgb(156, 161, 156);
+  font-style: italic;
+}
+nav button {
+  background: #fff;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-family: "Poppins";
+  cursor: pointer;
+  font-size: 1em;
+  margin-left: 20px;
+}
+/* auth forms */
+form.signup,
+form.login {
+  max-width: 400px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 4px;
 }

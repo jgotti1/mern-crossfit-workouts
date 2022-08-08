@@ -2,15 +2,13 @@ import React from "react";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { workoutFetchPath } from "../hooks/fetchPaths";
+import { useAuthContext } from "../hooks/useAuthContext";
+
+//date-fns formating date
+import formatDistanceToNow from "date-fns/formatDistanceToNow";
 
 function EditHome() {
-  //dev fetch path
-
-  const fetchPath = "http://localhost:4000/api/workouts/";
-
-  //prod fetch path to deploy from heroku
-  // const fetchPath = "http://xxxxxxxxx/api/workouts/"
-
   //Get state of the selected object to edit from useLocation()
   const { state } = useLocation();
   const [title, setTitle] = useState(state.title);
@@ -20,18 +18,26 @@ function EditHome() {
   const [results, setResults] = useState(state.results);
   const [error, setError] = useState(null);
   const [rx, setRx] = useState(state.rx);
+  const { user } = useAuthContext();
 
   //Handle "Patch of workout changes"
   const navigate = useNavigate();
   console.log(state);
+
   const handleEdit = async (e) => {
     e.preventDefault();
+    if (!user) {
+      setError("You must be logged in");
+      return;
+    }
     const workout = { title, time, workoutType, details, results, rx };
-    const response = await fetch(fetchPath + state._id, {
+
+    const response = await fetch(workoutFetchPath + state._id, {
       method: "PATCH",
       body: JSON.stringify(workout),
       headers: {
         "content-Type": "application/json",
+        Authorization: `Bearer ${user.token}`,
       },
     });
     const json = await response.json();
@@ -44,7 +50,40 @@ function EditHome() {
   };
 
   return (
-    <div className="home">
+    <div className="home_edit">
+      {/* workout selected section */}
+
+      <div className="workout-edit">
+        <div>
+          <h2 className="edit_head">EDIT WORKOUT</h2>
+        </div>
+        <h4>{state.title}</h4>
+        <p>
+          <strong>Workout Type: </strong>
+          {state.workoutType}
+        </p>
+        <p>
+          <strong> Time</strong> <em>(for timed wods): </em> {state.time + ":00"}
+        </p>
+        <p>
+          <strong>Details: </strong>
+          {state.details}
+        </p>
+        <p>
+          <strong>RX or Scaled: </strong>
+          {state.rx}
+        </p>
+        <p>
+          <strong>Results: </strong>
+          {state.results}
+        </p>
+        <p>
+          <strong>created: </strong>
+          {formatDistanceToNow(new Date(state.createdAt), { addSuffix: true })}
+        </p>
+      </div>
+
+      {/* Form section */}
       <form className="create" onSubmit={handleEdit}>
         <h3 className="workout_header">Edit Workout</h3>
         <h5 className="required">* required field</h5>
@@ -63,7 +102,7 @@ function EditHome() {
         <label>Workout Length (when applicable): </label>
         <input type="number" step="1" onChange={(e) => setTime(e.target.value)} value={time} />
         <label>* Workout Details: </label>
-        <textarea type="text" rows="7" cols="40" onChange={(e) => setDetails(e.target.value)} value={details} />
+        <textarea type="text" rows="7" cols="35" onChange={(e) => setDetails(e.target.value)} value={details} />
         <label>Results: </label>
         <input type="text" onChange={(e) => setResults(e.target.value)} value={results} />
         <label>RX or Scaled: </label>
