@@ -97,6 +97,8 @@ header a {
   margin: 0;
   font-size: 0.9em;
   color: #555;
+  position: relative;
+  top: 10px;
 }
 .workout-details span {
   position: absolute;
@@ -141,6 +143,7 @@ form button {
   font-family: "Poppins";
   border-radius: 4px;
   cursor: pointer;
+  box-shadow: 3px 3px rgba(47, 46, 46, 0.09);
 }
 div.error {
   padding: 10px;
@@ -192,4 +195,25 @@ form.login {
   padding: 20px;
   background: #fff;
   border-radius: 4px;
+}
+
+.searchWorkouts {
+  max-width: 100%;
+
+  border-radius: 6px;
+
+  box-shadow: 5px 5px rgba(47, 46, 46, 0.07);
+}
+.search {
+  color: rgb(47, 45, 45);
+  font-style: italic;
+}
+.header_text {
+  color: var(--primary);
+  letter-spacing: 14px;
+  text-shadow: 2px 3px rgba(47, 46, 46, 0.3);
+}
+.buttons_search {
+  display: flex;
+  gap: 25px;
 }
