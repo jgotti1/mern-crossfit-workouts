@@ -53,11 +53,11 @@ header a {
 }
 .workout-details {
   background: #fff;
-  border-radius: 4px;
+  border-radius: 8px;
   margin: 20px auto;
   padding: 20px;
   position: relative;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.09);
+  box-shadow: 5px 5px rgba(47, 46, 46, 0.07);
   width: 100%;
 }
 .workout-edit {
@@ -196,10 +196,10 @@ form.login {
   background: #fff;
   border-radius: 4px;
 }
-
+form.create {
+  max-height: 700px;
+}
 .searchWorkouts {
-  max-width: 100%;
-
   border-radius: 6px;
 
   box-shadow: 5px 5px rgba(47, 46, 46, 0.07);
@@ -207,11 +207,13 @@ form.login {
 .search {
   color: rgb(47, 45, 45);
   font-style: italic;
+  max-width: 300px;
 }
 .header_text {
   color: var(--primary);
   letter-spacing: 14px;
   text-shadow: 2px 3px rgba(47, 46, 46, 0.3);
+  text-align: justify;
 }
 .buttons_search {
   display: flex;

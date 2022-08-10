@@ -54,7 +54,7 @@ function EditHome() {
 
       <div className="workout-edit">
         <div>
-          <h2 className="edit_head">EDIT WORKOUT</h2>
+          <h2 className="edit_head">Update Workout</h2>
         </div>
         <h4>{state.title}</h4>
         <p>
@@ -112,7 +112,7 @@ function EditHome() {
         </select>
         <br />
         <br />
-        <button>Submit Edit(s)</button>
+        <button>Submit Update(s)</button>
         {error && <div className="error"> {error}</div>}
       </form>
     </div>
