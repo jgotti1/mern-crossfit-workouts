@@ -22,7 +22,6 @@ function EditHome() {
 
   //Handle "Patch of workout changes"
   const navigate = useNavigate();
-  console.log(state);
 
   const handleEdit = async (e) => {
     e.preventDefault();
